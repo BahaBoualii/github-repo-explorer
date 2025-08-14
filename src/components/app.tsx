@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { AppLayout } from "./app-layout";
-import { SearchBar } from "./search-bar";
-import { RepoList } from "./repo-list";
-import { LoadingSpinner } from "./ui/loading-spinner";
-import { ErrorMessage } from "./ui/error-message";
-import { useRepoStore } from "@/store/repo-store";
-import type { Repository } from "@/types/github";
+import { useState, useEffect } from 'react';
+import { AppLayout } from './app-layout';
+import { SearchBar } from './search-bar';
+import { RepoList } from './repo-list';
+import { LoadingSpinner } from './ui/loading-spinner';
+import { ErrorMessage } from './ui/error-message';
+import { useRepoStore } from '@/store/repo-store';
+import type { Repository } from '@/types/github';
 
 // Client-side only Apollo Provider wrapper
 function ApolloWrapper({ children }: { children: React.ReactNode }) {
@@ -39,8 +39,8 @@ function ApolloWrapper({ children }: { children: React.ReactNode }) {
 // Component that uses Apollo Client hooks
 function GitHubSearch() {
   const { username } = useRepoStore();
-  const [searchUsername, setSearchUsername] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [searchUsername, setSearchUsername] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -60,9 +60,13 @@ function GitHubSearch() {
       // Dynamically import and execute the GraphQL query
       const { gql } = await import('@apollo/client');
       const { apolloClient } = await import('@/lib/apollo-client');
-      
+
       const GET_USER_REPOSITORIES = gql`
-        query GetUserRepositories($username: String!, $first: Int = 100, $after: String) {
+        query GetUserRepositories(
+          $username: String!
+          $first: Int = 100
+          $after: String
+        ) {
           user(login: $username) {
             id
             login
@@ -122,8 +126,8 @@ function GitHubSearch() {
 
   // Handle reset
   const handleReset = () => {
-    setSearchUsername("");
-    setInputValue("");
+    setSearchUsername('');
+    setInputValue('');
     setRepositories([]);
     setError(null);
     setLoading(false);
@@ -146,9 +150,13 @@ function GitHubSearch() {
   useEffect(() => {
     if (queryError) {
       if (queryError.message?.includes('rate limit')) {
-        setError('GitHub API rate limit exceeded. Please try again later or check your token.');
+        setError(
+          'GitHub API rate limit exceeded. Please try again later or check your token.'
+        );
       } else if (queryError.message?.includes('Bad credentials')) {
-        setError('Invalid GitHub token. Please check your VITE_GITHUB_TOKEN in .env file.');
+        setError(
+          'Invalid GitHub token. Please check your VITE_GITHUB_TOKEN in .env file.'
+        );
       } else {
         setError(`GitHub API error: ${queryError.message || 'Unknown error'}`);
       }
@@ -165,17 +173,20 @@ function GitHubSearch() {
             Explore GitHub Repositories
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Enter a GitHub username to discover their public repositories. 
+            Enter a GitHub username to discover their public repositories.
             Filter by name, language, and explore their coding projects.
           </p>
           <div className="text-sm text-gray-500 dark:text-gray-400">
-            <p>💡 <strong>Note:</strong> The API has rate limits, so be patient with requests</p>
+            <p>
+              💡 <strong>Note:</strong> The API has rate limits, so be patient
+              with requests
+            </p>
           </div>
         </div>
 
         {/* Search Section */}
-        <SearchBar 
-          onSearch={handleSearch} 
+        <SearchBar
+          onSearch={handleSearch}
           isLoading={loading}
           inputValue={inputValue}
           setInputValue={setInputValue}
@@ -205,8 +216,18 @@ function GitHubSearch() {
                     onClick={handleReset}
                     className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
                     </svg>
                     Start New Search
                   </button>
@@ -214,25 +235,39 @@ function GitHubSearch() {
               </div>
             )}
 
-            {!loading && !error && repositories.length === 0 && searchUsername && (
-              <div className="text-center py-12">
-                <div className="text-gray-500 dark:text-gray-400">
-                  <p className="text-lg mb-2">No repositories found</p>
-                  <p className="text-sm mb-4">
-                    This user might not have any public repositories or the username might be incorrect.
-                  </p>
-                  <button
-                    onClick={handleReset}
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    Try Different Username
-                  </button>
+            {!loading &&
+              !error &&
+              repositories.length === 0 &&
+              searchUsername && (
+                <div className="text-center py-12">
+                  <div className="text-gray-500 dark:text-gray-400">
+                    <p className="text-lg mb-2">No repositories found</p>
+                    <p className="text-sm mb-4">
+                      This user might not have any public repositories or the
+                      username might be incorrect.
+                    </p>
+                    <button
+                      onClick={handleReset}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
+                      </svg>
+                      Try Different Username
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {!loading && !error && repositories.length > 0 && (
               <div className="space-y-4">
@@ -245,17 +280,28 @@ function GitHubSearch() {
                       onClick={handleReset}
                       className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
                       </svg>
                       New Search
                     </button>
                   </div>
                   <p className="text-gray-600 dark:text-gray-400">
-                    Found {repositories.length} public repository{repositories.length !== 1 ? 's' : ''}
+                    Found {repositories.length} public repository
+                    {repositories.length !== 1 ? 's' : ''}
                   </p>
                 </div>
-                
+
                 <RepoList repositories={repositories} />
               </div>
             )}

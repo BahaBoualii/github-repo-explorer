@@ -15,16 +15,17 @@ interface RepoStore {
 
 export const useRepoStore = create<RepoStore>()(
   devtools(
-    (set) => ({
+    set => ({
       username: '',
       nameFilter: '',
       languageFilter: 'all',
       availableLanguages: [],
-      
-      setUsername: (username) => set({ username }),
-      setNameFilter: (filter) => set({ nameFilter: filter }),
-      setLanguageFilter: (language) => set({ languageFilter: language }),
-      setAvailableLanguages: (languages) => set({ availableLanguages: languages }),
+
+      setUsername: username => set({ username }),
+      setNameFilter: filter => set({ nameFilter: filter }),
+      setLanguageFilter: language => set({ languageFilter: language }),
+      setAvailableLanguages: languages =>
+        set({ availableLanguages: languages }),
       resetFilters: () => set({ nameFilter: '', languageFilter: 'all' }),
     }),
     {

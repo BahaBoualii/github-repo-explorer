@@ -1,8 +1,8 @@
-import { Github, Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useRepoStore } from "@/store/repo-store";
-import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { Github, Moon, Sun } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useRepoStore } from '@/store/repo-store';
+import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -32,7 +32,12 @@ export function AppLayout({ children, className }: AppLayoutProps) {
   const toggleTheme = () => setIsDark(!isDark);
 
   return (
-    <div className={cn("min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors", className)}>
+    <div
+      className={cn(
+        'min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors',
+        className
+      )}
+    >
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 flex-shrink-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,7 +52,10 @@ export function AppLayout({ children, className }: AppLayoutProps) {
             <div className="flex items-center gap-4">
               {username && (
                 <div className="hidden sm:block text-sm text-gray-600 dark:text-gray-400">
-                  Viewing: <span className="font-medium text-gray-900 dark:text-gray-100">@{username}</span>
+                  Viewing:{' '}
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
+                    @{username}
+                  </span>
                 </div>
               )}
 
@@ -78,8 +86,8 @@ export function AppLayout({ children, className }: AppLayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center text-sm text-gray-600 dark:text-gray-400">
             <p>
-              Built with React, TypeScript, and ShadCN UI •
-              Powered by GitHub GraphQL API
+              Built with React, TypeScript, and ShadCN UI • Powered by GitHub
+              GraphQL API
             </p>
           </div>
         </div>

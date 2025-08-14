@@ -10,7 +10,7 @@ const meta: Meta<typeof RepoCard> = {
   },
   tags: ['autodocs'],
   decorators: [
-    (Story) => (
+    Story => (
       <div className="w-full max-w-md">
         <Story />
       </div>
@@ -24,7 +24,8 @@ type Story = StoryObj<typeof meta>;
 const mockRepository: Repository = {
   id: '1',
   name: 'example-repo',
-  description: 'This is an example repository with a description that shows how the card handles longer text content.',
+  description:
+    'This is an example repository with a description that shows how the card handles longer text content.',
   url: 'https://github.com/username/example-repo',
   stargazerCount: 1234,
   forkCount: 56,
@@ -54,7 +55,8 @@ const mockRepositoryLongName: Repository = {
   ...mockRepository,
   id: '4',
   name: 'very-long-repository-name-that-might-cause-layout-issues',
-  description: 'Repository with an extremely long name to test layout handling.',
+  description:
+    'Repository with an extremely long name to test layout handling.',
 };
 
 export const Default: Story = {

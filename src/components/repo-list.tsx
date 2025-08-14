@@ -1,10 +1,10 @@
-import type { Repository } from "@/types/github";
-import { RepoCard } from "./repo-card";
-import { Filters } from "./filters";
-import { extractLanguages, filterRepositories } from "@/lib/utils";
-import { useRepoStore } from "@/store/repo-store";
-import { useEffect } from "react";
-import { cn } from "@/lib/utils";
+import type { Repository } from '@/types/github';
+import { RepoCard } from './repo-card';
+import { Filters } from './filters';
+import { extractLanguages, filterRepositories } from '@/lib/utils';
+import { useRepoStore } from '@/store/repo-store';
+import { useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 interface RepoListProps {
   repositories: Repository[];
@@ -13,7 +13,7 @@ interface RepoListProps {
 
 export function RepoList({ repositories, className }: RepoListProps) {
   const { nameFilter, languageFilter, setAvailableLanguages } = useRepoStore();
-  
+
   // Extract available languages from repositories
   useEffect(() => {
     const languages = extractLanguages(repositories);
@@ -32,9 +32,9 @@ export function RepoList({ repositories, className }: RepoListProps) {
   }
 
   return (
-    <div className={cn("space-y-6", className)}>
+    <div className={cn('space-y-6', className)}>
       <Filters availableLanguages={extractLanguages(repositories)} />
-      
+
       {filteredRepositories.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-gray-500 dark:text-gray-400">
@@ -48,7 +48,8 @@ export function RepoList({ repositories, className }: RepoListProps) {
         <>
           <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
             <span>
-              Showing {filteredRepositories.length} of {repositories.length} repositories
+              Showing {filteredRepositories.length} of {repositories.length}{' '}
+              repositories
             </span>
             {nameFilter || languageFilter ? (
               <span className="text-blue-600 dark:text-blue-400">
@@ -56,13 +57,10 @@ export function RepoList({ repositories, className }: RepoListProps) {
               </span>
             ) : null}
           </div>
-          
+
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filteredRepositories.map((repository) => (
-              <RepoCard
-                key={repository.id}
-                repository={repository}
-              />
+            {filteredRepositories.map(repository => (
+              <RepoCard key={repository.id} repository={repository} />
             ))}
           </div>
         </>

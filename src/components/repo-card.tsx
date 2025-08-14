@@ -1,9 +1,9 @@
-import { Star, GitFork, Calendar, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import type { Repository } from "@/types/github";
-import { formatDate, formatNumber } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { Star, GitFork, Calendar, ExternalLink } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import type { Repository } from '@/types/github';
+import { formatDate, formatNumber } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 interface RepoCardProps {
   repository: Repository;
@@ -22,10 +22,12 @@ export function RepoCard({ repository, className }: RepoCardProps) {
   } = repository;
 
   return (
-    <Card className={cn(
-      "group hover:shadow-lg transition-all duration-200 hover:-translate-y-1",
-      className
-    )}>
+    <Card
+      className={cn(
+        'group hover:shadow-lg transition-all duration-200 hover:-translate-y-1',
+        className
+      )}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <CardTitle className="text-lg font-semibold group-hover:text-blue-600 transition-colors">
@@ -55,7 +57,7 @@ export function RepoCard({ repository, className }: RepoCardProps) {
           </p>
         )}
       </CardHeader>
-      
+
       <CardContent className="pt-0">
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center gap-4">
@@ -68,7 +70,7 @@ export function RepoCard({ repository, className }: RepoCardProps) {
               <span>{formatNumber(forkCount)}</span>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             <span>Updated {formatDate(updatedAt)}</span>
