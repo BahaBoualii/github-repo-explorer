@@ -23,6 +23,8 @@ A modern, minimalistic React application that allows users to explore GitHub rep
 - **Testing**: Vitest + React Testing Library
 - **Documentation**: Storybook
 - **Code Quality**: ESLint + Prettier
+- **Containerization**: Docker + Docker Compose
+- **CI/CD**: GitHub Actions
 
 ## 📋 Prerequisites
 
@@ -30,7 +32,9 @@ A modern, minimalistic React application that allows users to explore GitHub rep
 - npm or yarn
 - GitHub Personal Access Token
 
-## 🔧 Setup
+## 🚀 Quick Start with Docker
+
+The easiest way to run this project is using Docker Compose:
 
 ### 1. Clone the repository
 
@@ -39,18 +43,40 @@ git clone <repository-url>
 cd mvst-tech-test
 ```
 
-### 2. Install dependencies
+### 2. Run with Docker Compose
+
+```bash
+# Start the application
+docker compose up --build
+
+# Or run in background
+docker compose up -d --build
+```
+
+The application will be available at `http://localhost:3000`
+
+### 3. Stop the application
+
+```bash
+docker compose down
+```
+
+## 🔧 Local Development Setup
+
+If you prefer to run the project locally without Docker:
+
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Environment Configuration
+### 2. Environment Configuration
 
 Create a `.env` file in the root directory:
 
 ```bash
-cp env.example .env
+cp .env.example .env
 ```
 
 Add your GitHub Personal Access Token:
@@ -66,7 +92,7 @@ VITE_GITHUB_TOKEN=your_github_token_here
 3. Select scopes: `public_repo`, `read:user`
 4. Copy the token and paste it in your `.env` file
 
-### 4. Start the development server
+### 3. Start the development server
 
 ```bash
 npm run dev
@@ -181,39 +207,9 @@ The application uses GitHub's v4 GraphQL API to fetch:
 - Repository metadata (stars, forks, language, etc.)
 - Pagination support
 
-### GraphQL Query
+## 🌐 Deployment
 
-```graphql
-query GetUserRepositories(
-  $username: String!
-  $first: Int = 100
-  $after: String
-) {
-  user(login: $username) {
-    repositories(
-      first: $first
-      after: $after
-      orderBy: { field: UPDATED_AT, direction: DESC }
-      isFork: false
-      isPrivate: false
-    ) {
-      nodes {
-        id
-        name
-        description
-        url
-        stargazerCount
-        forkCount
-        primaryLanguage {
-          name
-          color
-        }
-        updatedAt
-      }
-    }
-  }
-}
-```
+This project is deployed on vercel and accessible online. The deployment link will be provided separately in the About section.
 
 ## 🚀 Future Improvements
 
@@ -235,27 +231,3 @@ query GetUserRepositories(
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [ShadCN UI](https://ui.shadcn.com/) for beautiful component library
-- [Tailwind CSS](https://tailwindcss.com/) for utility-first CSS framework
-- [GitHub GraphQL API](https://docs.github.com/en/graphql) for data
-- [React Router](https://reactrouter.com/) for routing
-- [Vite](https://vitejs.dev/) for fast build tooling
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/your-repo/issues) page
-2. Create a new issue with detailed information
-3. Include your environment details and steps to reproduce
-
----
-
-**Happy coding! 🎉**
