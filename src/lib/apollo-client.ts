@@ -1,4 +1,9 @@
-import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  from,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 
@@ -8,16 +13,18 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = import.meta.env.VITE_GITHUB_TOKEN;
-  
+
   if (!token) {
-    console.warn('GitHub token not found. Please set VITE_GITHUB_TOKEN in your .env file');
+    console.warn(
+      'GitHub token not found. Please set VITE_GITHUB_TOKEN in your .env file'
+    );
   }
-  
+
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : '',
-    }
+    },
   };
 });
 
@@ -29,7 +36,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
       );
     });
   }
-  
+
   if (networkError) {
     console.error(`[Network error]: ${networkError}`);
   }

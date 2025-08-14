@@ -13,7 +13,7 @@ const meta: Meta<typeof SearchBar> = {
     isLoading: { control: { type: 'boolean' } },
   },
   decorators: [
-    (Story) => (
+    Story => (
       <div className="w-full max-w-2xl">
         <Story />
       </div>

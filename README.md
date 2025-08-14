@@ -26,7 +26,7 @@ A modern, minimalistic React application that allows users to explore GitHub rep
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - GitHub Personal Access Token
 
@@ -60,6 +60,7 @@ VITE_GITHUB_TOKEN=your_github_token_here
 ```
 
 **To get a GitHub token:**
+
 1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
 2. Click "Generate new token (classic)"
 3. Select scopes: `public_repo`, `read:user`
@@ -75,22 +76,22 @@ The application will be available at `http://localhost:5173`
 
 ## 📚 Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run test` | Run tests |
-| `npm run test:ui` | Run tests with UI |
-| `npm run test:coverage` | Run tests with coverage |
-| `npm run test:storybook` | Run Storybook tests |
-| `npm run storybook` | Start Storybook |
-| `npm run build-storybook` | Build Storybook |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Fix ESLint issues |
-| `npm run format` | Format code with Prettier |
-| `npm run format:check` | Check code formatting |
-| `npm run typecheck` | Run TypeScript type checking |
+| Script                    | Description                  |
+| ------------------------- | ---------------------------- |
+| `npm run dev`             | Start development server     |
+| `npm run build`           | Build for production         |
+| `npm run start`           | Start production server      |
+| `npm run test`            | Run tests                    |
+| `npm run test:ui`         | Run tests with UI            |
+| `npm run test:coverage`   | Run tests with coverage      |
+| `npm run test:storybook`  | Run Storybook tests          |
+| `npm run storybook`       | Start Storybook              |
+| `npm run build-storybook` | Build Storybook              |
+| `npm run lint`            | Run ESLint                   |
+| `npm run lint:fix`        | Fix ESLint issues            |
+| `npm run format`          | Format code with Prettier    |
+| `npm run format:check`    | Check code formatting        |
+| `npm run typecheck`       | Run TypeScript type checking |
 
 ## 🧪 Testing
 
@@ -113,6 +114,7 @@ npm run test:storybook
 ### Test Coverage
 
 The project includes comprehensive test coverage for:
+
 - Component rendering and interactions
 - Utility functions
 - State management
@@ -173,6 +175,7 @@ The application follows modern design principles:
 ### GitHub GraphQL API
 
 The application uses GitHub's v4 GraphQL API to fetch:
+
 - User information
 - Public repositories
 - Repository metadata (stars, forks, language, etc.)
@@ -181,7 +184,11 @@ The application uses GitHub's v4 GraphQL API to fetch:
 ### GraphQL Query
 
 ```graphql
-query GetUserRepositories($username: String!, $first: Int = 100, $after: String) {
+query GetUserRepositories(
+  $username: String!
+  $first: Int = 100
+  $after: String
+) {
   user(login: $username) {
     repositories(
       first: $first

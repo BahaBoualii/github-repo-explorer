@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { cn, filterRepositories, extractLanguages, formatDate, formatNumber } from './utils';
+import {
+  cn,
+  filterRepositories,
+  extractLanguages,
+  formatDate,
+  formatNumber,
+} from './utils';
 import type { Repository } from '@/types/github';
 
 describe('utils', () => {
@@ -9,7 +15,9 @@ describe('utils', () => {
     });
 
     it('handles conditional classes', () => {
-      expect(cn('base', true && 'conditional', false && 'hidden')).toBe('base conditional');
+      expect(cn('base', true && 'conditional', false && 'hidden')).toBe(
+        'base conditional'
+      );
     });
 
     it('handles undefined and null values', () => {
@@ -173,27 +181,37 @@ describe('utils', () => {
     });
 
     it('formats yesterday correctly', () => {
-      const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+      const yesterday = new Date(
+        Date.now() - 24 * 60 * 60 * 1000
+      ).toISOString();
       expect(formatDate(yesterday)).toBe('Yesterday');
     });
 
     it('formats days ago correctly', () => {
-      const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString();
+      const threeDaysAgo = new Date(
+        Date.now() - 3 * 24 * 60 * 60 * 1000
+      ).toISOString();
       expect(formatDate(threeDaysAgo)).toBe('3 days ago');
     });
 
     it('formats weeks ago correctly', () => {
-      const twoWeeksAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
+      const twoWeeksAgo = new Date(
+        Date.now() - 14 * 24 * 60 * 60 * 1000
+      ).toISOString();
       expect(formatDate(twoWeeksAgo)).toBe('2 weeks ago');
     });
 
     it('formats months ago correctly', () => {
-      const twoMonthsAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString();
+      const twoMonthsAgo = new Date(
+        Date.now() - 60 * 24 * 60 * 60 * 1000
+      ).toISOString();
       expect(formatDate(twoMonthsAgo)).toBe('2 months ago');
     });
 
     it('formats years ago correctly', () => {
-      const twoYearsAgo = new Date(Date.now() - 2 * 365 * 24 * 60 * 60 * 1000).toISOString();
+      const twoYearsAgo = new Date(
+        Date.now() - 2 * 365 * 24 * 60 * 60 * 1000
+      ).toISOString();
       const result = formatDate(twoYearsAgo);
       // The function should return a date string for dates older than 1 year
       expect(result).toMatch(/\d+\/\d+\/\d+/);

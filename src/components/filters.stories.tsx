@@ -9,7 +9,7 @@ const meta: Meta<typeof Filters> = {
   },
   tags: ['autodocs'],
   decorators: [
-    (Story) => (
+    Story => (
       <div className="w-full max-w-4xl">
         <Story />
       </div>
@@ -29,8 +29,20 @@ export const Default: Story = {
 export const WithManyLanguages: Story = {
   args: {
     availableLanguages: [
-      'TypeScript', 'JavaScript', 'Python', 'Go', 'Rust', 'C++', 'Java',
-      'C#', 'PHP', 'Ruby', 'Swift', 'Kotlin', 'Dart', 'Elixir'
+      'TypeScript',
+      'JavaScript',
+      'Python',
+      'Go',
+      'Rust',
+      'C++',
+      'Java',
+      'C#',
+      'PHP',
+      'Ruby',
+      'Swift',
+      'Kotlin',
+      'Dart',
+      'Elixir',
     ],
   },
 };
